@@ -1,0 +1,28 @@
+#include <iostream>
+#include<stack>
+using namespace std;
+stack<int>k;
+int main(int argc, char const *argv[])
+{
+	int n,i,j,turn=0;
+	cin>>n;
+	int target[n];
+	for(i=0;i<n;i++)cin>>target[i];
+	for(i=0;i<=target[0];i++)k.push(i);
+	for(i=0;i<n;i++)
+	{
+		if(target[i]==k.top())k.pop();
+		else if(target[i]<k.top())
+		{
+			turn=1;
+			cout<<"false"<<endl;
+			break;
+		}
+		else if(target[i]>k.top())
+		{
+			for(j=k.top()+1;j<=target[i];j++)k.push(j);
+		}
+	}
+	if(turn==0)cout<<"true"<<endl;
+	return 0;
+}
