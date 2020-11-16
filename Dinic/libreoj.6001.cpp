@@ -82,24 +82,51 @@ struct Dinic
 		}
 		return res;
 	}
+	int print(int m,int n)
+	{
+		for(int i=1;i<=m;i++)
+		{
+			// cout<<i<<" "<<dis[i]<<endl;
+			if(dis[i])cout<<i<<" ";
+		}
+		cout<<endl;
+		for(int i=m+1;i<=m+n;i++)
+		{
+			if(dis[i])cout<<i-m<<" ";
+		}
+		cout<<endl;
+	}
 }dinic;
 
 void io() { ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); }
 int main(int argc, char const *argv[])
 {
 	io();
-	int n,m,a,b,i,j;
-	scanf("%d%d",&n,&m);
-	dinic.clearall(m+2);
-	for(int i=m;i>0;i--)
-		dinic.addedge(0,i,1);
-	for(int i=n;i>m;i--)
-		dinic.addedge(i,n+1,1);
-	while(scanf("%d%d",&a,&b)==2)
+	int n,m,a,b;
+	cin>>m>>n;
+	string str;
+	getline(cin,str);
+	int res=0;
+	for(int i=1;i<=m;i++)
 	{
-		dinic.addedge(a,b,1);
+		getline(cin,str);
+		// cout<<str<<endl;
+		istringstream it(str);
+		int cnt=1;
+		while(it>>a)
+		{
+			if(cnt==1)dinic.addedge(0,i,a),res+=a;
+			else dinic.addedge(i,m+a,0x3f);
+			cnt++;
+		}
 	}
-	int flow=dinic.maxflow(0,n+1);
-	printf("%d\n",flow );
+	for(int i=1;i<=n;i++)
+	{
+		cin>>a;
+		dinic.addedge(m+i,m+n+1,a);
+	}
+	int flow=dinic.maxflow(0,m+n+1);
+	dinic.print(m,n);
+	cout<<res-flow;
 	return 0;
 }
