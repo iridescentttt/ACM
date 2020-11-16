@@ -32,6 +32,7 @@ struct Dinic
 	{
 		queue<int>q;
 		memset(vis,0,sizeof(vis));
+        memset(dis,0,sizeof(dis));
 		q.push(source);
 		dis[source]=0;
 		vis[source]=1;

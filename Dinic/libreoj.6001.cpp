@@ -33,6 +33,7 @@ struct Dinic
 		queue<int>q;
 		memset(vis,0,sizeof(vis));
 		q.push(source);
+		memset(dis,0,sizeof(dis));
 		dis[source]=0;
 		vis[source]=1;
 		while(q.size())
@@ -44,6 +45,7 @@ struct Dinic
 				Edge& e=edge[m];
 				if(!vis[e.v]&&e.cap>e.flow)
 				{
+					// if(e.v==2)cout<<"cap "<<e.cap<<" flow "<<e.flow<<endl;
 					vis[e.v]=1;
 					dis[e.v]=dis[x]+1;
 					q.push(e.v);
@@ -86,12 +88,13 @@ struct Dinic
 	{
 		for(int i=1;i<=m;i++)
 		{
-			// cout<<i<<" "<<dis[i]<<endl;
+			// cout<<i<<" and "<<dis[i]<<endl;
 			if(dis[i])cout<<i<<" ";
 		}
 		cout<<endl;
 		for(int i=m+1;i<=m+n;i++)
 		{
+			// cout<<i-m<<" "<<dis[i]<<endl;
 			if(dis[i])cout<<i-m<<" ";
 		}
 		cout<<endl;
